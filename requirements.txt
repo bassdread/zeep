@@ -1,0 +1,2 @@
+adafruit-io == 1.1.0
+dweepy == 0.2.0

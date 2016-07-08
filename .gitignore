@@ -23,6 +23,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+src/zeep/settings/*.py
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
