@@ -3,3 +3,6 @@ ADAFRUITIO_KEY = "EXAMPLE_KEY"
 
 # see https://dweet.io/play/
 DWEET_NAME="office"
+
+# path to write JSON to
+FILE_SYSTEM_PATH = '/tmp/zeep_latest_reading.json'

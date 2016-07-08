@@ -66,7 +66,8 @@ class SerialSensor():
                     # keep going we might get lucky
                     pass
             else:
-                print "Failed to decode anything"
+                if self.debug:
+                    print "Failed to decode anything"
 
     def _detect_port(self):
 

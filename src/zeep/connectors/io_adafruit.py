@@ -1,9 +1,13 @@
 from Adafruit_IO import Client
+from settings import ADAFRUITIO_KEY
 
 
 class IOAdafruitConnector(object):
 
-    def __init__(self, api_key):
+    def __init__(self, api_key=None):
+
+        if not api_key:
+            api_key =  ADAFRUITIO_KEY
 
         self.aio = Client(api_key)
 
@@ -12,7 +16,9 @@ class IOAdafruitConnector(object):
 
         try:
             for key, value in data.iteritems():
-                aio.send(key, value)
+                self.aio.send(key, value)
+
+            response = {'status': 'ok'}
         except Exception as exception:
             response = {'error': exception.message}
 

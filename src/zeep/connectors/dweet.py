@@ -14,7 +14,7 @@ class DweetConnector(object):
         # send data to dweet
 
         try:
-            response = dweepy.dweet_for(self.name, data)
+            response = dweepy.dweet_for(self.dweet_name, data)
         except Exception as exception:
             response = {'error': exception.message}
 
