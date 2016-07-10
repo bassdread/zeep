@@ -1,7 +1,7 @@
 # Zeep
 Library to extract data from serial and send it various services.
 
-# Support Services
+# Supported Services
 Services and things Zeep can send data to.
 
 ## Dweet https://dweet.io
