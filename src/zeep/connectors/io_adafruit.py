@@ -1,5 +1,10 @@
 from Adafruit_IO import Client
-from settings import ADAFRUITIO_KEY
+
+try:
+    from settings import SERVICES
+except ImportError:
+    # service not configured
+    pass
 
 
 class IOAdafruitConnector(object):
@@ -7,7 +12,7 @@ class IOAdafruitConnector(object):
     def __init__(self, api_key=None):
 
         if not api_key:
-            api_key =  ADAFRUITIO_KEY
+            api_key =  SERVICES['ADAFRUITIO_KEY']
 
         self.aio = Client(api_key)
 

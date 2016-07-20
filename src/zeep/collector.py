@@ -4,15 +4,9 @@ Generic collector code to run config file
 
 from inputs.serial_connector import SerialSensor
 from connectors import (dweet, file_system, io_adafruit)
-from settings import *
+from settings import SERVICES
 from time import sleep
 
-
-SERVICES_TO_UPDATE = [
-    'dweet',
-    'io_adafruit',
-    'file_system'
-]
 
 def run():
     print "running"
@@ -24,13 +18,13 @@ def run():
 
         print reading
 
-        for service in SERVICES_TO_UPDATE:
-            if service == 'dweet':
-                conn = dweet.DweetConnector()
-            elif service == 'io_adafruit':
-                conn = io_adafruit.IOAdafruitConnector()
-            elif service == 'file_system':
-                conn = file_system.FileSystemConnector()
+        for name, setting in SERVICES.iteritems():
+            if name == 'DWEET_NAME':
+                conn = dweet.DweetConnector(setting)
+            elif name == 'ADAFRUITIO_KEY':
+                conn = io_adafruit.IOAdafruitConnector(setting)
+            elif name == 'FILE_SYSTEM_PATH':
+                conn = file_system.FileSystemConnector(setting)
 
             conn.send(reading)
 
