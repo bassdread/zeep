@@ -22,7 +22,7 @@ cd zeep
 [sudo] pip install virtualenv
 virtualenv .
 source bin/activate
-
+pip install -r requirements.txt
 python src/zeep/collector.py
 ```
 
