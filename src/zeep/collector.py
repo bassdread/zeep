@@ -10,7 +10,6 @@ from time import sleep
 
 def run():
     print "running"
-
     while(True):
         sensor_reader = SerialSensor()
 
@@ -27,8 +26,7 @@ def run():
                 conn = file_system.FileSystemConnector(setting)
 
             conn.send(reading)
-
-        sleep(30)
+        sleep(300)
 
 if __name__ == "__main__":
     run()

@@ -22,7 +22,7 @@ SERIAL_PORT_PATH_ROOT = '/dev/'
 
 class SerialSensor():
 
-    def __init__(self, port=None, json_data=True, debug=False):
+    def __init__(self, port=None, json_data=True, debug=True):
         if port:
             self.serial_port = SERIAL_PORT_PATH_ROOT + port
         else:
