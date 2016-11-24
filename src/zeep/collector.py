@@ -3,7 +3,7 @@ Generic collector code to run config file
 """
 
 from inputs.serial_connector import SerialSensor
-from connectors import (dweet, file_system, io_adafruit)
+from connectors import (dweet, file_system, io_adafruit, influx)
 from settings import SERVICES
 from time import sleep
 
@@ -24,9 +24,11 @@ def run():
                 conn = io_adafruit.IOAdafruitConnector(setting)
             elif name == 'FILE_SYSTEM_PATH':
                 conn = file_system.FileSystemConnector(setting)
+            elif name == 'INFLUXDB':
+                conn = influx.InfluxDBConnector(setting)
 
             conn.send(reading)
-        sleep(300)
+        sleep(10)
 
 if __name__ == "__main__":
     run()
