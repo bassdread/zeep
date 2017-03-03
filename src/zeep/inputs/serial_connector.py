@@ -8,6 +8,8 @@ sensor = SerialSensor(port='ttyUSB0', json_data=False)
 
 """
 
+from __future__ import print_function
+
 import glob
 import json
 import serial
@@ -15,7 +17,7 @@ import os.path
 import time
 
 # usual linux ports
-PORTS = ['ttyUSB0', 'ttyAMA0', 'ttyACM0']
+PORTS = ['ttyUSB0']
 OSX_PORTS = ['tty.usbserial-*']
 SERIAL_PORT_PATH_ROOT = '/dev/'
 
@@ -33,12 +35,12 @@ class SerialSensor():
         self.json_data = json_data
 
         if self.debug:
-            print "Using {} as serial port".format(self.serial_port)
+            print("Using {} as serial port".format(self.serial_port))
 
     def read(self, timeout=10):
 
         if not self.serial_port:
-            print "Unable to find anything on the serial port to read from."
+            print("Unable to find anything on the serial port to read from.")
             return
 
         stop = time.time() + timeout
@@ -48,16 +50,16 @@ class SerialSensor():
             i = i + 1
             raw_serial = self.ser.readline()
             if self.debug:
-                print "Attempt {0}: Received: {1}".format(i, raw_serial)
+                print("Attempt {0}: Received: {1}".format(i, raw_serial))
 
             if self.json_data and raw_serial:
                 try:
-                    return json.loads(raw_serial)
+                    return json.loads(raw_serial.decode("utf-8"))
                 except Exception as exception:
                     if self.debug:
-                        print "Failed to decode to JSON: {0}".format(
-                            raw_serial)
-                        print exception.message
+                        print("Failed to decode to JSON: {0}".format(
+                            raw_serial))
+                        print(exception)
             elif raw_serial:
                 try:
                     raw_serial = raw_serial.replace('\r\n', '')
@@ -67,7 +69,7 @@ class SerialSensor():
                     pass
             else:
                 if self.debug:
-                    print "Failed to decode anything"
+                    print("Failed to decode anything")
 
     def _detect_port(self):
 

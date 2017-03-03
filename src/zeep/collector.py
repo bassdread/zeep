@@ -1,31 +1,30 @@
 """
 Generic collector code to run config file
 """
+from __future__ import print_function
 
 from inputs.serial_connector import SerialSensor
-from connectors import (dweet, file_system, io_adafruit, influx)
+from connectors import (dweet, file_system, io_adafruit)
 from settings import SERVICES
 from time import sleep
 
 
 def run():
-    print "running"
+    print("running")
     while(True):
         sensor_reader = SerialSensor()
 
         reading = sensor_reader.read()
 
-        print reading
+        print(reading)
 
-        for name, setting in SERVICES.iteritems():
+        for name, setting in SERVICES.items():
             if name == 'DWEET_NAME':
                 conn = dweet.DweetConnector(setting)
             elif name == 'ADAFRUITIO_KEY':
                 conn = io_adafruit.IOAdafruitConnector(setting)
             elif name == 'FILE_SYSTEM_PATH':
                 conn = file_system.FileSystemConnector(setting)
-            elif name == 'INFLUXDB':
-                conn = influx.InfluxDBConnector(setting)
 
             conn.send(reading)
         sleep(10)
