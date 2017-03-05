@@ -12,14 +12,14 @@ except ImportError:
 
 class InfluxDBConnector(object):
 
-
-    def __init__(self, database_name=None):
-
+    def __init__(self, logger=None, database_name=None):
         if not database_name:
             database_name = services['INFLUXDB']
 
+        self.logger = logger
+
         self.database_name = database_name
-        self.influx_client = InfluxDBClient('localhost', 8086, 'root', 'root', self.database_name)
+        self.influx_client = InfluxDBClient('192.168.0.100', 8086, 'root', 'root', self.database_name)
 
     def send(self, data):
 
@@ -31,12 +31,15 @@ class InfluxDBConnector(object):
 
         json_payload = []
         time = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+        
+        self.logger.debug("Sending influxdb {}".format(self.database_name))
+
         try:
-            for name, value in data.iteritems():
+            for name, value in data.items():
                 payload = {
                     "measurement": name,
                     "tags": {
-                        "host": "jarvis",
+                        "host": "deadpool",
                         "location": "office"
                     },
                     "time": time,
@@ -47,5 +50,4 @@ class InfluxDBConnector(object):
                 json_payload.append(payload)
             self.influx_client.write_points(json_payload)
         except Exception as exception:
-            print_exc()
-            print "Failed to write to Influx. Error {}".format(exception.message)
+            self.logger.exception("Failed to write to Influx. Error {}".format(exception))
